@@ -11,6 +11,11 @@ This project is an AI-powered assistant that uses FastAPI and FAISS for retrieva
 - Use FAISS for efficient document retrieval
 - Evaluate LLM responses using Opik
 
+## 📽️ Demo Video
+
+[🎥 Click here to watch the demo](https://drive.google.com/file/d/10h4VnTm_y5SBczI6NnoTuqRxyq55HAn5/view?usp=sharing)
+
+
 ## 📦 Installation
 
 ### Install Ollama
@@ -65,8 +70,8 @@ Pulls required models (deepseek-r1:7b, nomic-embed-text)
 
 Waits for Ollama to initialize
 
-##Launches the FastAPI server on http://127.0.0.1:7860
- ## Streamlit Application - http://127.0.0.1:8501
+### Launches the FastAPI server on http://127.0.0.1:7860
+###  Streamlit Application - http://127.0.0.1:8501
 
 ## API Endpoints
 Upload Dataset
