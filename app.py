@@ -1,27 +1,23 @@
 import os
 import re
-import warnings
 import pandas as pd
 import backoff
+import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
 from langchain_ollama import OllamaEmbeddings, ChatOllama
-from langchain_text_splitters import MarkdownHeaderTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_community.docstore.in_memory import InMemoryDocstore
+
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-from docling.document_converter import DocumentConverter
 from opik import Opik, track, evaluate
 from opik.evaluation.metrics import Hallucination, AnswerRelevance
-from opik.evaluation import models
 import litellm
 import opik
 from fastapi.responses import StreamingResponse
 from litellm.integrations.opik.opik import OpikLogger
 from litellm import completion, APIConnectionError
-from langchain_huggingface import HuggingFaceEmbeddings, ChatHuggingFace, HuggingFaceEndpoint
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query, Response
 
 from langchain.document_loaders import PyMuPDFLoader, UnstructuredWordDocumentLoader
@@ -202,17 +198,17 @@ def chain(input_text: str = Query(..., description="Enter your question")):
             start_sending = False
 
             for chunk in rag_chain.stream(input_text):
-                if isinstance(chunk, str):
-                    buffer += chunk  # Append chunk to buffer
+                # if isinstance(chunk, str):
+                #     buffer += chunk  # Append chunk to buffer
                     
-                    # Check if `</think>` is found
-                    if "</think>" in buffer:
-                        start_sending = True
-                        # Yield everything after `</think>` (including `</think>` itself)
-                        yield buffer.split("</think>", 1)[1]
-                        buffer = ""  # Clear the buffer after sending the first response
-                    elif start_sending:
-                        yield chunk  # Continue yielding after the `</think>` tag
+                #     # Check if `</think>` is found
+                #     if "</think>" in buffer:
+                #         start_sending = True
+                #         # Yield everything after `</think>` (including `</think>` itself)
+                #         yield buffer.split("</think>", 1)[1]
+                #         buffer = ""  # Clear the buffer after sending the first response
+                #     elif start_sending:
+                yield chunk  # Continue yielding after the `</think>` tag
         return StreamingResponse(generate(), media_type="text/plain")
 
     except Exception as e:
@@ -224,7 +220,7 @@ def read_root():
 if __name__ == "__main__":
     # start my fastapi app
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=7860)
     
 
     # questions=[ "Is the website accessible through mobile also? please tell the benefits of it","How do I register for a new connection?","how to make payments?",]

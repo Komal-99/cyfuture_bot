@@ -24,6 +24,7 @@ COPY --chown=user . .
 
 # Make the start script executable
 RUN chmod +x start.sh
-EXPOSE 7860
+# Expose FastAPI & Streamlit ports
+EXPOSE 7860 8501
 
 CMD ["./start.sh"]

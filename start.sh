@@ -32,5 +32,8 @@ echo "Ollama is ready."
 # Print the API URL
 echo "API is running on: http://0.0.0.0:7860"
 
-# Start the FastAPI server
-uvicorn app:app --host 0.0.0.0 --port 7860 --workers 4 --limit-concurrency 20
+# Start FastAPI in the background
+uvicorn app:app --host 0.0.0.0 --port 7860 --workers 4 --limit-concurrency 20 &
+
+# Start Streamlit for UI
+streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0
