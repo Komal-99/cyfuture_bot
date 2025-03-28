@@ -65,8 +65,8 @@ Pulls required models (deepseek-r1:7b, nomic-embed-text)
 
 Waits for Ollama to initialize
 
-Launches the FastAPI server on http://0.0.0.0:7860
-
+##Launches the FastAPI server on http://127.0.0.1:7860
+ ## Streamlit Application - http://127.0.0.1:8501
 
 ## API Endpoints
 Upload Dataset
